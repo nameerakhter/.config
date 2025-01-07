@@ -922,49 +922,19 @@ require('lazy').setup({
   --     vim.cmd 'colorscheme rose-pine'
   --   end,
   -- },
-  -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   priority = 1000, -- Ensure it's loaded first (optional)
-  --   config = function()
-  --     -- Configure Rose Pine
-  --     require('rose-pine').setup {
-  --       dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
-  --       disable_background = false, -- Start with background enabled
-  --     }
-  --
-  --     -- Apply the colorscheme
-  --     vim.cmd 'colorscheme rose-pine'
-  --
-  --     -- Toggle background transparency
-  --     local is_transparent = false
-  --     vim.keymap.set('n', '<leader>bg', function()
-  --       is_transparent = not is_transparent
-  --       if is_transparent then
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-  --         print 'Background transparency: ON'
-  --       else
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
-  --         print 'Background transparency: OFF'
-  --       end
-  --     end, { desc = 'Toggle background transparency' })
-  --   end,
-  -- },
   {
-    'datsfilipe/vesper.nvim',
-    name = 'vesper',
-    priority = 1000, -- Ensure it's loaded first if needed
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000, -- Ensure it's loaded first (optional)
     config = function()
-      -- Configure Vesper Theme
-      require('vesper').setup {
-        dark_variant = 'dark', -- Choose 'dark' or 'light'
-        disable_background = false, -- Enable background by default
+      -- Configure Rose Pine
+      require('rose-pine').setup {
+        dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
+        disable_background = false, -- Start with background enabled
       }
 
-      -- Apply the Vesper colorscheme by default
-      vim.cmd 'colorscheme vesper'
+      -- Apply the colorscheme
+      vim.cmd 'colorscheme rose-pine'
 
       -- Toggle background transparency
       local is_transparent = false
@@ -982,6 +952,36 @@ require('lazy').setup({
       end, { desc = 'Toggle background transparency' })
     end,
   },
+  -- {
+  --   'datsfilipe/vesper.nvim',
+  --   name = 'vesper',
+  --   priority = 1000, -- Ensure it's loaded first if needed
+  --   config = function()
+  --     -- Configure Vesper Theme
+  --     require('vesper').setup {
+  --       dark_variant = 'dark', -- Choose 'dark' or 'light'
+  --       disable_background = false, -- Enable background by default
+  --     }
+  --
+  --     -- Apply the Vesper colorscheme by default
+  --     vim.cmd 'colorscheme vesper'
+  --
+  --     -- Toggle background transparency
+  --     local is_transparent = false
+  --     vim.keymap.set('n', '<leader>bg', function()
+  --       is_transparent = not is_transparent
+  --       if is_transparent then
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         print 'Background transparency: ON'
+  --       else
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         print 'Background transparency: OFF'
+  --       end
+  --     end, { desc = 'Toggle background transparency' })
+  --   end,
+  -- },
 
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
