@@ -382,6 +382,8 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
+      local telescope = require 'telescope'
+      local actions = require 'telescope.actions'
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search
       -- many different aspects of Neovim, your workspace, LSP, and more!
@@ -424,9 +426,10 @@ require('lazy').setup({
         },
         live_grep = {
           file_ignore_patterns = { 'node_modules', '.git' },
-          additional_args = function(_)
-            return { '--hidden' }
-          end,
+          find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/node_modules/*' },
+          -- additional_args = function(_)
+          --   return { '--hidden' }
+          -- end,
         },
         extensions = {
           ['ui-select'] = {
@@ -922,19 +925,71 @@ require('lazy').setup({
   --     vim.cmd 'colorscheme rose-pine'
   --   end,
   -- },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  --   priority = 1000, -- Ensure it's loaded first (optional)
+  --   config = function()
+  --     -- Configure Rose Pine
+  --     require('rose-pine').setup {
+  --       dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
+  --       disable_background = false, -- Start with background enabled
+  --     }
+  --
+  --     -- Apply the colorscheme
+  --     vim.cmd 'colorscheme rose-pine'
+  --
+  --     -- Toggle background transparency
+  --     local is_transparent = false
+  --     vim.keymap.set('n', '<leader>bg', function()
+  --       is_transparent = not is_transparent
+  --       if is_transparent then
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         print 'Background transparency: ON'
+  --       else
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         print 'Background transparency: OFF'
+  --       end
+  --     end, { desc = 'Toggle background transparency' })
+  --   end,
+  -- },
   {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000, -- Ensure it's loaded first (optional)
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000, -- Ensure it's loaded first if needed
     config = function()
-      -- Configure Rose Pine
-      require('rose-pine').setup {
-        dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
-        disable_background = false, -- Start with background enabled
+      require('catppuccin').setup {
+        flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
+        transparent_background = false, -- Set to true if you prefer a transparent background
+        term_colors = true,
+        integrations = {
+          treesitter = true,
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = { 'italic' },
+              hints = { 'italic' },
+              warnings = { 'italic' },
+              information = { 'italic' },
+            },
+            underlines = {
+              errors = { 'underline' },
+              hints = { 'underline' },
+              warnings = { 'underline' },
+              information = { 'underline' },
+            },
+          },
+          telescope = true,
+          nvimtree = true,
+          cmp = true,
+          gitsigns = true,
+        },
       }
 
-      -- Apply the colorscheme
-      vim.cmd 'colorscheme rose-pine'
+      -- Apply the Catppuccin colorscheme by default
+      vim.cmd 'colorscheme catppuccin'
 
       -- Toggle background transparency
       local is_transparent = false
