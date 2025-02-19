@@ -281,6 +281,8 @@ require('lazy').setup({
     },
   },
 
+  { 'folke/snacks.nvim', priority = 1000, lazy = false },
+
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -365,7 +367,7 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
         'nvim-telescope/telescope-fzf-native.nvim',
-
+        --
         -- `build` is used to run some command when the plugin is installed/updated.
         -- This is only run then, not every time Neovim starts up.
         build = 'make',
@@ -426,10 +428,10 @@ require('lazy').setup({
         },
         live_grep = {
           file_ignore_patterns = { 'node_modules', '.git' },
-          find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/node_modules/*' },
-          -- additional_args = function(_)
-          --   return { '--hidden' }
-          -- end,
+          -- find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/node_modules/*' },
+          additional_args = function(_)
+            return { '--hidden' }
+          end,
         },
         extensions = {
           ['ui-select'] = {
@@ -455,6 +457,12 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>gc', '<cmd>Telescope git_commits<CR>', { desc = 'commits' })
+      vim.keymap.set('n', '<leader>gs', '<cmd>Telescope git_status<CR>', { desc = 'Status' })
+      vim.keymap.set('n', '<leader>s"', '<cmd>Telescope registers<cr>', { desc = 'registers' })
+      -- Keybindings for moving selected text up and down
+      vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selected text down' })
+      vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selected text up' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -481,6 +489,7 @@ require('lazy').setup({
     end,
   },
 
+  { 'folke/snacks.nvim', priority = 1000, lazy = false },
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
