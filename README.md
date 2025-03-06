@@ -162,6 +162,54 @@ Alpha-nvim provides a customizable start screen for Neovim. It displays a welcom
 **Configuration:**
 - Custom header with ASCII art
 
+## Keybindings
+
+Below is a list of keybindings used in this configuration:
+
+- `\`: Reveal the current file in the Neo-tree
+- `\`: Close the Neo-tree window
+- `<leader>e`: Toggle NvimTree
+- `<leader>er`: Refresh NvimTree
+- `<Esc>`: Clear highlights on search
+- `<leader>q`: Open diagnostic quickfix list
+- `<Esc><Esc>`: Exit terminal mode
+- `ss`: Split window horizontally
+- `sv`: Split window vertically
+- `<C-a>`: Select all
+- `<C-h>`: Move focus to the left window
+- `<C-l>`: Move focus to the right window
+- `<C-j>`: Move focus to the lower window
+- `<C-k>`: Move focus to the upper window
+- `<Tab>`: Switch to the next buffer
+- `<S-Tab>`: Switch to the previous buffer
+- `<leader>x`: Close buffer
+- `<leader>b`: New buffer
+- `<leader>sh`: Search help
+- `<leader>sk`: Search keymaps
+- `<leader>sf`: Search files
+- `<leader>ss`: Search select Telescope
+- `<leader>sw`: Search current word
+- `<leader>sg`: Search by grep
+- `<leader>sd`: Search diagnostics
+- `<leader>fd`: Open floating diagnostic message
+- `<leader>sr`: Search resume
+- `<leader>s.`: Search recent files
+- `<leader><leader>`: Find existing buffers
+- `<leader>gc`: Search git commits
+- `<leader>gs`: Search git status
+- `<leader>s"`: Search registers
+- `<A-j>`: Move selected text down
+- `<A-k>`: Move selected text up
+- `<leader>sn`: Search Neovim files
+- `<leader>f`: Format buffer
+- `<leader>D`: Type definition
+- `<leader>ds`: Document symbols
+- `<leader>ws`: Workspace symbols
+- `<leader>rn`: Rename
+- `<leader>ca`: Code action
+- `<leader>th`: Toggle inlay hints
+- `<leader>bg`: Toggle background transparency
+
 ## Installation
 
 ### Install Neovim
