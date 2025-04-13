@@ -425,13 +425,12 @@ require('lazy').setup({
             file_ignore_patterns = { 'node_modules', '.git' },
             hidden = true,
           },
-        },
-        live_grep = {
-          file_ignore_patterns = { 'node_modules', '.git' },
-          -- find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/node_modules/*' },
-          additional_args = function(_)
-            return { '--hidden' }
-          end,
+          live_grep = {
+            file_ignore_patterns = { 'node_modules', '.git' },
+            additional_args = function()
+              return { '--hidden' }
+            end,
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -606,7 +605,7 @@ require('lazy').setup({
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client.supports_method 'textDocument/documentHighlight' then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -921,84 +920,19 @@ require('lazy').setup({
   --     }
   --   end,
   -- },
-  -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   priority = 1000, -- Ensure it's loaded first (optional)
-  --   config = function()
-  --     -- Configure Rose Pine
-  --     require('rose-pine').setup {
-  --       dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
-  --     }
-  --     -- Apply the colorscheme
-  --     vim.cmd 'colorscheme rose-pine'
-  --   end,
-  -- },
-  -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   priority = 1000, -- Ensure it's loaded first (optional)
-  --   config = function()
-  --     -- Configure Rose Pine
-  --     require('rose-pine').setup {
-  --       dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
-  --       disable_background = false, -- Start with background enabled
-  --     }
-  --
-  --     -- Apply the colorscheme
-  --     vim.cmd 'colorscheme rose-pine'
-  --
-  --     -- Toggle background transparency
-  --     local is_transparent = false
-  --     vim.keymap.set('n', '<leader>bg', function()
-  --       is_transparent = not is_transparent
-  --       if is_transparent then
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-  --         print 'Background transparency: ON'
-  --       else
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
-  --         print 'Background transparency: OFF'
-  --       end
-  --     end, { desc = 'Toggle background transparency' })
-  --   end,
-  -- },
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000, -- Ensure it's loaded first if needed
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000, -- Ensure it's loaded first (optional)
     config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
-        transparent_background = false, -- Set to true if you prefer a transparent background
-        term_colors = true,
-        integrations = {
-          treesitter = true,
-          native_lsp = {
-            enabled = true,
-            virtual_text = {
-              errors = { 'italic' },
-              hints = { 'italic' },
-              warnings = { 'italic' },
-              information = { 'italic' },
-            },
-            underlines = {
-              errors = { 'underline' },
-              hints = { 'underline' },
-              warnings = { 'underline' },
-              information = { 'underline' },
-            },
-          },
-          telescope = true,
-          nvimtree = true,
-          cmp = true,
-          gitsigns = true,
-        },
+      -- Configure Rose Pine
+      require('rose-pine').setup {
+        dark_variant = 'moon', -- Choose 'main', 'moon', or 'dawn'
+        disable_background = false, -- Start with background enabled
       }
 
-      -- Apply the Catppuccin colorscheme by default
-      vim.cmd 'colorscheme catppuccin'
+      -- Apply the colorscheme
+      vim.cmd 'colorscheme rose-pine'
 
       -- Toggle background transparency
       local is_transparent = false
@@ -1016,7 +950,59 @@ require('lazy').setup({
       end, { desc = 'Toggle background transparency' })
     end,
   },
-  -- {
+  --  {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000, -- Ensure it's loaded first if needed
+  --   config = function()
+  --     require('catppuccin').setup {
+  --       flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
+  --       transparent_background = false, -- Set to true if you prefer a transparent background
+  --       term_colors = true,
+  --       integrations = {
+  --         treesitter = true,
+  --         native_lsp = {
+  --           enabled = true,
+  --           virtual_text = {
+  --             errors = { 'italic' },
+  --             hints = { 'italic' },
+  --             warnings = { 'italic' },
+  --             information = { 'italic' },
+  --           },
+  --           underlines = {
+  --             errors = { 'underline' },
+  --             hints = { 'underline' },
+  --             warnings = { 'underline' },
+  --             information = { 'underline' },
+  --           },
+  --         },
+  --         telescope = true,
+  --         nvimtree = true,
+  --         cmp = true,
+  --         gitsigns = true,
+  --       },
+  --     }
+  --
+  --     -- Apply the Catppuccin colorscheme by default
+  --     vim.cmd 'colorscheme catppuccin'
+  --
+  --     -- Toggle background transparency
+  --     local is_transparent = false
+  --     vim.keymap.set('n', '<leader>bg', function()
+  --       is_transparent = not is_transparent
+  --       if is_transparent then
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         print 'Background transparency: ON'
+  --       else
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         print 'Background transparency: OFF'
+  --       end
+  --     end, { desc = 'Toggle background transparency' })
+  --   end,
+  -- },
+  -- -- {
   --   'datsfilipe/vesper.nvim',
   --   name = 'vesper',
   --   priority = 1000, -- Ensure it's loaded first if needed
@@ -1046,25 +1032,25 @@ require('lazy').setup({
   --     end, { desc = 'Toggle background transparency' })
   --   end,
   -- },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
+  --
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   init = function()
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi 'Comment gui=none'
+  --   end,
+  -- },
+  --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
