@@ -166,24 +166,31 @@ Alpha-nvim provides a customizable start screen for Neovim. It displays a welcom
 
 Below is a list of keybindings used in this configuration:
 
+### File Navigation
 - `\`: Reveal the current file in the Neo-tree
 - `\`: Close the Neo-tree window
 - `<leader>e`: Toggle NvimTree
 - `<leader>er`: Refresh NvimTree
-- `<Esc>`: Clear highlights on search
-- `<leader>q`: Open diagnostic quickfix list
-- `<Esc><Esc>`: Exit terminal mode
+
+### Window Management
 - `ss`: Split window horizontally
 - `sv`: Split window vertically
-- `<C-a>`: Select all
 - `<C-h>`: Move focus to the left window
 - `<C-l>`: Move focus to the right window
 - `<C-j>`: Move focus to the lower window
 - `<C-k>`: Move focus to the upper window
+
+### Buffer Management
 - `<Tab>`: Switch to the next buffer
 - `<S-Tab>`: Switch to the previous buffer
 - `<leader>x`: Close buffer
 - `<leader>b`: New buffer
+- `<leader>bd`: Buffer delete
+- `<leader>ba`: Buffer delete all
+- `<leader>bo`: Buffer delete other
+- `<leader>bz`: Toggle Zen Mode
+
+### Search Operations
 - `<leader>sh`: Search help
 - `<leader>sk`: Search keymaps
 - `<leader>sf`: Search files
@@ -191,24 +198,43 @@ Below is a list of keybindings used in this configuration:
 - `<leader>sw`: Search current word
 - `<leader>sg`: Search by grep
 - `<leader>sd`: Search diagnostics
-- `<leader>fd`: Open floating diagnostic message
 - `<leader>sr`: Search resume
 - `<leader>s.`: Search recent files
 - `<leader><leader>`: Find existing buffers
+
+### Git Operations
 - `<leader>gc`: Search git commits
 - `<leader>gs`: Search git status
-- `<leader>s"`: Search registers
-- `<A-j>`: Move selected text down
-- `<A-k>`: Move selected text up
-- `<leader>sn`: Search Neovim files
-- `<leader>f`: Format buffer
+
+### LSP Features
+- `<leader>fd`: Open floating diagnostic message
 - `<leader>D`: Type definition
 - `<leader>ds`: Document symbols
 - `<leader>ws`: Workspace symbols
 - `<leader>rn`: Rename
 - `<leader>ca`: Code action
 - `<leader>th`: Toggle inlay hints
+
+### Editing
+- `<C-a>`: Select all
+- `<A-j>`: Move selected text down
+- `<A-k>`: Move selected text up
+- `<leader>f`: Format buffer
+- `<Esc>`: Clear highlights on search
+
+### Terminal
+- `<Esc><Esc>`: Exit terminal mode
+
+### Notifications
+- `<leader>fn`: Search notification history with Telescope
+- `<leader>nc`: Clear/dismiss all notifications
+- `<leader>nh`: Show notification history
+
+### Misc
+- `<leader>s"`: Search registers
+- `<leader>sn`: Search Neovim files
 - `<leader>bg`: Toggle background transparency
+- `<leader>q`: Open diagnostic quickfix list
 
 ## Installation
 

@@ -253,6 +253,8 @@ require('lazy').setup({
   require 'custom.plugins.indent-blankline',
   require 'custom.plugins.alpha',
   require 'custom.plugins.misc',
+  require 'custom.plugins.snacks',
+  require 'custom.plugins.noice',
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -281,7 +283,45 @@ require('lazy').setup({
     },
   },
 
-  { 'folke/snacks.nvim', priority = 1000, lazy = false },
+  -- { 'folke/snacks.nvim', priority = 1000, lazy = false },
+  -- {
+  --   'rcarriga/nvim-notify',
+  --   priority = 1000,
+  --   config = function()
+  --     local notify = require("notify")
+
+  --     -- Configure the notification plugin
+  --     notify.setup({
+  --       -- Animation style (fade, slide, fade_in_slide_out, static)
+  --       stages = "fade",
+
+  --       -- Default timeout for notifications in milliseconds
+  --       timeout = 3000,
+
+  --       -- For stages that change opacity, this is treated as the highlight behind the window
+  --       background_colour = "#000000",
+
+  --       -- Icons for different message levels
+  --       icons = {
+  --         ERROR = "",
+  --         WARN = "",
+  --         INFO = "",
+  --         DEBUG = "",
+  --         TRACE = "✎",
+  --       },
+  --     })
+
+  --     -- Set as the default notify function
+  --     vim.notify = notify
+
+  --     -- Add a keybinding to test notifications
+  --     vim.keymap.set('n', '<leader>tn', function()
+  --       vim.notify("This is a test notification!", "info", {
+  --         title = "Notification Test"
+  --       })
+  --     end, { desc = '[T]est [N]otification' })
+  --   end
+  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -488,7 +528,21 @@ require('lazy').setup({
     end,
   },
 
-  { 'folke/snacks.nvim', priority = 1000, lazy = false },
+  -- { 'folke/snacks.nvim', priority = 1000, lazy = false },
+  -- {
+  --   'folke/snacks.nvim',
+  --   priority = 1000,
+  --   lazy = false,
+  --   config = function()
+  --     -- Basic setup with minimal configuration
+  --     require('snacks').setup({})
+  --
+  --     -- Create a quick keymap to test notifications
+  --     vim.keymap.set('n', '<leader>tn', function()
+  --       vim.notify("This is a test notification!", vim.log.levels.INFO)
+  --     end, { desc = '[T]est [N]otification' })
+  --   end
+  -- },
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -920,19 +974,71 @@ require('lazy').setup({
   --     }
   --   end,
   -- },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  --   priority = 1000, -- Ensure it's loaded first (optional)
+  --   config = function()
+  --     -- Configure Rose Pine
+  --     require('rose-pine').setup {
+  --       dark_variant = 'moon', -- Choose 'main', 'moon', or 'dawn'
+  --       disable_background = false, -- Start with background enabled
+  --     }
+
+  --     -- Apply the colorscheme
+  --     vim.cmd 'colorscheme rose-pine'
+
+  --     -- Toggle background transparency
+  --     local is_transparent = false
+  --     vim.keymap.set('n', '<leader>bg', function()
+  --       is_transparent = not is_transparent
+  --       if is_transparent then
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         print 'Background transparency: ON'
+  --       else
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         print 'Background transparency: OFF'
+  --       end
+  --     end, { desc = 'Toggle background transparency' })
+  --   end,
+  -- },
   {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000, -- Ensure it's loaded first (optional)
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000, -- Ensure it's loaded first if needed
     config = function()
-      -- Configure Rose Pine
-      require('rose-pine').setup {
-        dark_variant = 'moon', -- Choose 'main', 'moon', or 'dawn'
-        disable_background = false, -- Start with background enabled
+      require('catppuccin').setup {
+        flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
+        transparent_background = false, -- Set to true if you prefer a transparent background
+        term_colors = true,
+        integrations = {
+          treesitter = true,
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = { 'italic' },
+              hints = { 'italic' },
+              warnings = { 'italic' },
+              information = { 'italic' },
+            },
+            underlines = {
+              errors = { 'underline' },
+              hints = { 'underline' },
+              warnings = { 'underline' },
+              information = { 'underline' },
+            },
+          },
+          telescope = true,
+          nvimtree = true,
+          cmp = true,
+          gitsigns = true,
+        },
       }
 
-      -- Apply the colorscheme
-      vim.cmd 'colorscheme rose-pine'
+      -- Apply the Catppuccin colorscheme by default
+      vim.cmd 'colorscheme catppuccin'
 
       -- Toggle background transparency
       local is_transparent = false
@@ -950,58 +1056,6 @@ require('lazy').setup({
       end, { desc = 'Toggle background transparency' })
     end,
   },
-  --  {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000, -- Ensure it's loaded first if needed
-  --   config = function()
-  --     require('catppuccin').setup {
-  --       flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
-  --       transparent_background = false, -- Set to true if you prefer a transparent background
-  --       term_colors = true,
-  --       integrations = {
-  --         treesitter = true,
-  --         native_lsp = {
-  --           enabled = true,
-  --           virtual_text = {
-  --             errors = { 'italic' },
-  --             hints = { 'italic' },
-  --             warnings = { 'italic' },
-  --             information = { 'italic' },
-  --           },
-  --           underlines = {
-  --             errors = { 'underline' },
-  --             hints = { 'underline' },
-  --             warnings = { 'underline' },
-  --             information = { 'underline' },
-  --           },
-  --         },
-  --         telescope = true,
-  --         nvimtree = true,
-  --         cmp = true,
-  --         gitsigns = true,
-  --       },
-  --     }
-  --
-  --     -- Apply the Catppuccin colorscheme by default
-  --     vim.cmd 'colorscheme catppuccin'
-  --
-  --     -- Toggle background transparency
-  --     local is_transparent = false
-  --     vim.keymap.set('n', '<leader>bg', function()
-  --       is_transparent = not is_transparent
-  --       if is_transparent then
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-  --         print 'Background transparency: ON'
-  --       else
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
-  --         print 'Background transparency: OFF'
-  --       end
-  --     end, { desc = 'Toggle background transparency' })
-  --   end,
-  -- },
   -- -- {
   --   'datsfilipe/vesper.nvim',
   --   name = 'vesper',
