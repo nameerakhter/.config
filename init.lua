@@ -201,7 +201,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
-vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts) -- close buffer
+vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts)   -- close buffer
 vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
 
 -- [[ Basic Autocommands ]]
@@ -338,7 +338,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -381,7 +381,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -421,7 +421,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       local telescope = require 'telescope'
@@ -455,8 +455,8 @@ require('lazy').setup({
           mappings = {
             i = {
               ['<C-k>'] = require('telescope.actions').move_selection_previous, -- move to prev result
-              ['<C-j>'] = require('telescope.actions').move_selection_next, -- move to next result
-              ['<C-l>'] = require('telescope.actions').select_default, -- open file
+              ['<C-j>'] = require('telescope.actions').move_selection_next,     -- move to next result
+              ['<C-l>'] = require('telescope.actions').select_default,          -- open file
             },
           },
         },
@@ -556,7 +556,7 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta',     lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -568,7 +568,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -1004,71 +1004,41 @@ require('lazy').setup({
   --     end, { desc = 'Toggle background transparency' })
   --   end,
   -- },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000, -- Ensure it's loaded first if needed
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
-        transparent_background = false, -- Set to true if you prefer a transparent background
-        term_colors = true,
-        integrations = {
-          treesitter = true,
-          native_lsp = {
-            enabled = true,
-            virtual_text = {
-              errors = { 'italic' },
-              hints = { 'italic' },
-              warnings = { 'italic' },
-              information = { 'italic' },
-            },
-            underlines = {
-              errors = { 'underline' },
-              hints = { 'underline' },
-              warnings = { 'underline' },
-              information = { 'underline' },
-            },
-          },
-          telescope = true,
-          nvimtree = true,
-          cmp = true,
-          gitsigns = true,
-        },
-      }
-
-      -- Apply the Catppuccin colorscheme by default
-      vim.cmd 'colorscheme catppuccin'
-
-      -- Toggle background transparency
-      local is_transparent = false
-      vim.keymap.set('n', '<leader>bg', function()
-        is_transparent = not is_transparent
-        if is_transparent then
-          vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-          print 'Background transparency: ON'
-        else
-          vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
-          print 'Background transparency: OFF'
-        end
-      end, { desc = 'Toggle background transparency' })
-    end,
-  },
-  -- -- {
-  --   'datsfilipe/vesper.nvim',
-  --   name = 'vesper',
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
   --   priority = 1000, -- Ensure it's loaded first if needed
   --   config = function()
-  --     -- Configure Vesper Theme
-  --     require('vesper').setup {
-  --       dark_variant = 'dark', -- Choose 'dark' or 'light'
-  --       disable_background = false, -- Enable background by default
+  --     require('catppuccin').setup {
+  --       flavour = 'mocha', -- Options: "latte", "frappe", "macchiato", or "mocha"
+  --       transparent_background = false, -- Set to true if you prefer a transparent background
+  --       term_colors = true,
+  --       integrations = {
+  --         treesitter = true,
+  --         native_lsp = {
+  --           enabled = true,
+  --           virtual_text = {
+  --             errors = { 'italic' },
+  --             hints = { 'italic' },
+  --             warnings = { 'italic' },
+  --             information = { 'italic' },
+  --           },
+  --           underlines = {
+  --             errors = { 'underline' },
+  --             hints = { 'underline' },
+  --             warnings = { 'underline' },
+  --             information = { 'underline' },
+  --           },
+  --         },
+  --         telescope = true,
+  --         nvimtree = true,
+  --         cmp = true,
+  --         gitsigns = true,
+  --       },
   --     }
   --
-  --     -- Apply the Vesper colorscheme by default
-  --     vim.cmd 'colorscheme vesper'
+  --     -- Apply the Catppuccin colorscheme by default
+  --     vim.cmd 'colorscheme catppuccin'
   --
   --     -- Toggle background transparency
   --     local is_transparent = false
@@ -1086,6 +1056,36 @@ require('lazy').setup({
   --     end, { desc = 'Toggle background transparency' })
   --   end,
   -- },
+  {
+    'datsfilipe/vesper.nvim',
+    name = 'vesper',
+    priority = 1000, -- Ensure it's loaded first if needed
+    config = function()
+      -- Configure Vesper Theme
+      require('vesper').setup {
+        dark_variant = 'dark',      -- Choose 'dark' or 'light'
+        disable_background = false, -- Enable background by default
+      }
+
+      -- Apply the Vesper colorscheme by default
+      vim.cmd 'colorscheme vesper'
+
+      -- Toggle background transparency
+      local is_transparent = false
+      vim.keymap.set('n', '<leader>bg', function()
+        is_transparent = not is_transparent
+        if is_transparent then
+          vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+          print 'Background transparency: ON'
+        else
+          vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+          print 'Background transparency: OFF'
+        end
+      end, { desc = 'Toggle background transparency' })
+    end,
+  },
   --
   -- { -- You can easily change to a different colorscheme.
   --   -- Change the name of the colorscheme plugin below, and then
