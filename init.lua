@@ -255,8 +255,9 @@ require('lazy').setup({
   require 'custom.plugins.misc',
   require 'custom.plugins.snacks',
   require 'custom.plugins.noice',
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  require 'custom.plugins.typr',
+    -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -973,31 +974,80 @@ require('lazy').setup({
   --     }
   --   end,
   -- },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000, -- Ensure it's loaded first (optional)
+    config = function()
+      -- Configure Rose Pine
+      require('rose-pine').setup {
+        dark_variant = 'main', -- Choose 'main', 'moon', or 'dawn'
+        disable_background = false, -- Start with background enabled
+      }
+
+      -- Apply the colorscheme
+      vim.cmd 'colorscheme rose-pine'
+
+      -- Toggle background transparency
+      local is_transparent = false
+      vim.keymap.set('n', '<leader>bg', function()
+        is_transparent = not is_transparent
+        if is_transparent then
+          vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+          print 'Background transparency: ON'
+        else
+          vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+          print 'Background transparency: OFF'
+        end
+      end, { desc = 'Toggle background transparency' })
+    end,
+  },
   -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   priority = 1000, -- Ensure it's loaded first (optional)
+  --   'rebelot/kanagawa.nvim',
+  --   name = 'kanagawa',
+  --   priority = 1000,
   --   config = function()
-  --     -- Configure Rose Pine
-  --     require('rose-pine').setup {
-  --       dark_variant = 'moon', -- Choose 'main', 'moon', or 'dawn'
-  --       disable_background = false, -- Start with background enabled
+  --     -- Configure Kanagawa
+  --     require('kanagawa').setup {
+  --       compile = false, -- Manually calling setup is usually enough
+  --       undercurl = true, -- Enable undercurls
+  --       commentStyle = { italic = true },
+  --       functionStyle = {},
+  --       keywordStyle = { italic = true },
+  --       statementStyle = { bold = true },
+  --       typeStyle = {},
+  --       transparent = false, -- Start with background enabled
+  --       dimInactive = false, -- Dim inactive windows
+  --       terminalColors = true, -- Define terminal colors
+  --       colors = { -- Add/modify theme and palette colors
+  --         palette = {},
+  --         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  --       },
+  --       theme = 'wave', -- Options: "wave", "dragon", "lotus"
+  --       background = { -- Map Neovim 'background' option to a theme
+  --         dark = 'wave', -- Try "dragon" for a darker look
+  --         light = 'lotus',
+  --       },
   --     }
-
+  --
   --     -- Apply the colorscheme
-  --     vim.cmd 'colorscheme rose-pine'
-
+  --     vim.cmd 'colorscheme kanagawa'
+  --
   --     -- Toggle background transparency
   --     local is_transparent = false
   --     vim.keymap.set('n', '<leader>bg', function()
   --       is_transparent = not is_transparent
   --       if is_transparent then
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         -- We target the specific Kanagawa highlight groups for a cleaner look
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  --         vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' }) -- For inactive windows
   --         print 'Background transparency: ON'
   --       else
-  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         -- Reloading the colorscheme is the cleanest way to restore Kanagawa's lush background
+  --         vim.cmd 'colorscheme kanagawa'
   --         print 'Background transparency: OFF'
   --       end
   --     end, { desc = 'Toggle background transparency' })
@@ -1055,36 +1105,36 @@ require('lazy').setup({
   --     end, { desc = 'Toggle background transparency' })
   --   end,
   -- },
-  {
-    'datsfilipe/vesper.nvim',
-    name = 'vesper',
-    priority = 1000, -- Ensure it's loaded first if needed
-    config = function()
-      -- Configure Vesper Theme
-      require('vesper').setup {
-        dark_variant = 'dark', -- Choose 'dark' or 'light'
-        disable_background = false, -- Enable background by default
-      }
-
-      -- Apply the Vesper colorscheme by default
-      vim.cmd 'colorscheme vesper'
-
-      -- Toggle background transparency
-      local is_transparent = false
-      vim.keymap.set('n', '<leader>bg', function()
-        is_transparent = not is_transparent
-        if is_transparent then
-          vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-          print 'Background transparency: ON'
-        else
-          vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
-          vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
-          print 'Background transparency: OFF'
-        end
-      end, { desc = 'Toggle background transparency' })
-    end,
-  },
+  -- {
+  --   'datsfilipe/vesper.nvim',
+  --   name = 'vesper',
+  --   priority = 1000, -- Ensure it's loaded first if needed
+  --   config = function()
+  --     -- Configure Vesper Theme
+  --     require('vesper').setup {
+  --       dark_variant = 'dark', -- Choose 'dark' or 'light'
+  --       disable_background = false, -- Enable background by default
+  --     }
+  --
+  --     -- Apply the Vesper colorscheme by default
+  --     vim.cmd 'colorscheme vesper'
+  --
+  --     -- Toggle background transparency
+  --     local is_transparent = false
+  --     vim.keymap.set('n', '<leader>bg', function()
+  --       is_transparent = not is_transparent
+  --       if is_transparent then
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+  --         print 'Background transparency: ON'
+  --       else
+  --         vim.api.nvim_set_hl(0, 'Normal', { bg = nil })
+  --         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = nil })
+  --         print 'Background transparency: OFF'
+  --       end
+  --     end, { desc = 'Toggle background transparency' })
+  --   end,
+  -- },
   --
   -- { -- You can easily change to a different colorscheme.
   --   -- Change the name of the colorscheme plugin below, and then
